@@ -1,12 +1,15 @@
 import { Construct } from 'constructs';
 import { App, TerraformStack } from 'cdktf';
 import { Container, Image } from './.gen/providers/docker';
+// import { Container, Image, DockerProvider } from './.gen/providers/docker';
 
 class MyStack extends TerraformStack {
   constructor(scope: Construct, name: string) {
     super(scope, name);
 
-const dockerImage = new Image(this, 'nginxImage', {
+    // new DockerProvider(this, 'provider', {})
+
+    const dockerImage = new Image(this, 'nginxImage', {
       name: 'nginx:latest',
       keepLocally: false,
     })
