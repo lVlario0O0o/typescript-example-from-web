@@ -4,18 +4,20 @@ import { Container, Image } from './.gen/providers/docker';
 // import { Container, Image, DockerProvider } from './.gen/providers/docker';
 
 class MyStack extends TerraformStack {
+  public readonly dockerImage: Image
+
   constructor(scope: Construct, name: string) {
     super(scope, name);
 
     // new DockerProvider(this, 'provider', {})
 
-    const dockerImage = new Image(this, 'nginxImage', {
+    this.dockerImage = new Image(this, 'nginxImage', {
       name: 'nginx:latest',
       keepLocally: false,
     })
 
     new Container(this, 'nginxContainer', {
-      image: dockerImage.latest,
+      image: this.dockerImage.latest,
       name: 'tutorial',
       ports: [
         {
